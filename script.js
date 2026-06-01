@@ -2224,7 +2224,7 @@ function updateResourceInventoryText() {
   setTextIfExists("inventoryMenuNoxSheep", text.sheepGroup);
   setTextIfExists("inventoryMenuNoxPoultry", text.poultryGroup);
   setTextIfExists("inventoryMenuNoxOtherLivestock", text.draftGroup);
-  setTextIfExists("inventoryMenuHono", text.honoCategoryPending);
+  setTextIfExists("inventoryMenuHono", text.honoCategory);
   setTextIfExists("inventoryMenuTime", text.categoryTime);
   setTextIfExists("inventoryMenuLivestock", text.subCategoryLivestock);
   setTextIfExists("inventoryMenuSpecies", text.categorySpecies);
