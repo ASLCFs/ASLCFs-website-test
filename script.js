@@ -873,7 +873,7 @@ const rasterInventoryConfig = {
   speciesSubjects: ["猪", "牛", "奶牛", "羊", "家禽", "其他"],
   cropSubjects: ["水稻", "小麦", "玉米", "其他作物"],
   passengerCarPollutants: ["CO", "NH3", "NOx", "PM", "VOC"],
-  methaneSourceSubjects: ["甲烷总排放量", "粪便管理", "肠道发酵"],
+  methaneSourceSubjects: ["甲烷总排放量", "水稻种植", "粪便管理", "肠道发酵"],
   monthlyPeriods: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
   annualPeriod: "Annual",
   pageSize: 20
@@ -1308,7 +1308,7 @@ function getRasterTexts() {
       categoryCrop: "作物分解",
       categoryPollutant: "污染物分解",
       categoryMethaneSource: "甲烷来源分解",
-      riceMethanePending: "水稻种植（待上传）",
+      riceMethane: "水稻种植",
       subCategoryLivestock: "畜禽总量",
       subCategoryCrop: "种植业总量",
       scaleMonthly: "月度",
@@ -1388,7 +1388,7 @@ function getRasterTexts() {
     categoryCrop: "Crop Decomposition",
     categoryPollutant: "Pollutant Decomposition",
     categoryMethaneSource: "Methane Source Decomposition",
-    riceMethanePending: "Rice Cultivation (Pending upload)",
+    riceMethane: "Rice Cultivation",
     subCategoryLivestock: "Total Livestock",
     subCategoryCrop: "Total Crop Farming",
     scaleMonthly: "Monthly",
@@ -1721,13 +1721,16 @@ function createMethaneSourceInventoryItems() {
   const items = [];
   const sizeBySubject = {
     "甲烷总排放量": 1120000,
+    "水稻种植": 356490,
     "粪便管理": 1120000,
     "肠道发酵": 1120000
   };
 
   rasterInventoryConfig.years.forEach((year) => {
     rasterInventoryConfig.methaneSourceSubjects.forEach((subject) => {
-      const name = `${subject}_${year}.tif`;
+      const name = subject === "水稻种植"
+        ? `CH4_emission_rice_China_5min_${year}.tif`
+        : `${subject}_${year}.tif`;
       items.push({
         id: `CH4-${year}-methane-source-${subject}`,
         dataType: "emission",
@@ -2021,6 +2024,7 @@ function formatRasterSubject(subject) {
       "玉米": "Maize",
       "其他作物": "Other Crops",
       "甲烷总排放量": "Total Methane Emissions",
+      "水稻种植": "Rice Cultivation",
       "粪便管理": "Manure Management",
       "肠道发酵": "Enteric Fermentation",
       "肉猪": "Market Hogs",
@@ -2177,7 +2181,7 @@ function updateResourceInventoryText() {
   setTextIfExists("inventoryMenuCh4Total", formatRasterSubject("甲烷总排放量"));
   setTextIfExists("inventoryMenuCh4Manure", formatRasterSubject("粪便管理"));
   setTextIfExists("inventoryMenuCh4Enteric", formatRasterSubject("肠道发酵"));
-  setTextIfExists("inventoryMenuCh4RicePending", text.riceMethanePending);
+  setTextIfExists("inventoryMenuCh4Rice", text.riceMethane || "水稻种植");
   setTextIfExists("inventoryMenuNox", text.noxCategory);
   setTextIfExists("inventoryMenuNoxPlanting", text.sectorPlantingPending);
   setTextIfExists("inventoryMenuNoxLivestockSector", text.sectorLivestock);
