@@ -534,14 +534,14 @@ const teamData = {
       name: "李保杰",
       role: "教授",
       research: "活性氮排放及其大气环境效应",
-      photo: "人物卡片/李保杰.png",
+      photo: "assets/teachers/libaojie.png",
       link: "https://faculty.nuist.edu.cn/libaojie/zh_CN/index.htm"
     },
     {
       name: "廖宏",
       role: "团队PI",
       research: "大气环境与气候变化",
-      photo: "人物卡片/廖宏.jpg",
+      photo: "assets/teachers/liaohong.jpg",
       link: "https://faculty.nuist.edu.cn/liaohong/zh_CN/index.htm"
     },
     {
