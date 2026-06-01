@@ -1,0 +1,22 @@
+排放清单推荐字段
+
+1. region_code: 区域编码
+2. region_name: 区域名称
+3. year: 年份
+4. month: 月份
+5. sector: 排放部门
+6. source_type: 排放源类型
+7. pollutant: 污染物名称
+8. activity_level: 活动水平
+9. activity_unit: 活动水平单位
+10. emission_factor: 排放因子
+11. factor_unit: 排放因子单位
+12. emission_value: 排放量
+13. emission_unit: 排放量单位
+14. data_source: 数据来源
+15. remarks: 备注
+
+建议：
+- 所有数值字段尽量统一单位。
+- 污染物名称建议保持固定写法，如 SO2、NOx、PM2.5、VOC。
+- 文件名中包含年份和区域，便于页面长期维护。

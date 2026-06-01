@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>数据资源 - 农业SLCFs排放数据集</title>
+  <meta name="description" content="浏览和访问我们的排放数据资源清单。" />
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" />
+
+  <link rel="stylesheet" href="styles-modern.css" />
+  <script src="script.js" defer></script>
+</head>
+<body data-page="resources">
+  <div class="page-shell">
+    <div id="site-header-slot" class="site-shell-slot"></div>
+    <div id="site-announcement-slot" class="site-shell-slot"></div>
+
+    <main>
+      <section class="inventory-list-section">
+        <aside class="inventory-sidebar" aria-label="清单导航">
+          <div class="inventory-sidebar-block">
+            <button class="inventory-sidebar-title" type="button">
+              <span id="inventorySidebarTitle">清单列表</span>
+              <span aria-hidden="true">⌄</span>
+            </button>
+            <nav class="inventory-menu">
+              <a href="#" class="inventory-menu-group active inventory-menu-disabled"><span id="inventoryMenuEmission">排放数据</span><span class="inventory-menu-caret" aria-hidden="true">⌄</span></a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-1 inventory-menu-parent active" id="inventoryMenuAgriculture" data-inventory-filter-dataset="agriculture_emission">农业SLCFs排放数据（ASLCFs）</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-parent" id="inventoryMenuNh3" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单">NH3排放清单</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-parent" id="inventoryMenuPlanting" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业">种植业</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuPlantingTime" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="时间分解">时间分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuPlantingTotal" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="时间分解" data-inventory-filter-subjects="crop">种植业总量</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuCropDecomposition" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="作物分解">作物分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuRice" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="作物分解" data-inventory-filter-subjects="水稻">水稻</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuWheat" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="作物分解" data-inventory-filter-subjects="小麦">小麦</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuMaize" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="作物分解" data-inventory-filter-subjects="玉米">玉米</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuOtherCrops" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="种植业" data-inventory-filter-category="作物分解" data-inventory-filter-subjects="其他作物">其他作物</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-parent" id="inventoryMenuLivestockSector" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业">畜牧业</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuTime" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="时间分解">时间分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuLivestock" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="时间分解" data-inventory-filter-subjects="livestock">畜禽总量</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuSpecies" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解">物种分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuSwine" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="猪">猪</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuCattle" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="牛">牛</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuDairyCattle" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="奶牛">奶牛</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuSheep" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="羊">羊</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuPoultry" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="家禽">家禽</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuDraft" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NH3排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="其他">其他</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-parent" id="inventoryMenuCh4" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="CH4排放清单">CH4排放清单</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-parent" id="inventoryMenuCh4MethaneSource" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="CH4排放清单" data-inventory-filter-category="甲烷来源分解">甲烷来源分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-leaf" id="inventoryMenuCh4Total" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="CH4排放清单" data-inventory-filter-category="甲烷来源分解" data-inventory-filter-subjects="甲烷总排放量">甲烷总排放量</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-leaf" id="inventoryMenuCh4Manure" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="CH4排放清单" data-inventory-filter-category="甲烷来源分解" data-inventory-filter-subjects="粪便管理">粪便管理</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-leaf" id="inventoryMenuCh4Enteric" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="CH4排放清单" data-inventory-filter-category="甲烷来源分解" data-inventory-filter-subjects="肠道发酵">肠道发酵</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-leaf inventory-menu-disabled" id="inventoryMenuCh4RicePending">水稻种植（待上传）</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-parent" id="inventoryMenuNox" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单">NOx排放清单</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf inventory-menu-disabled" id="inventoryMenuNoxPlanting">种植业（待开发）</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-parent" id="inventoryMenuNoxLivestockSector" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业">畜牧业</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuNoxTime" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="时间分解">时间分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxLivestock" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="时间分解" data-inventory-filter-subjects="livestock">畜禽总量</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-4 inventory-menu-parent" id="inventoryMenuNoxSpecies" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解">物种分解</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxSwine" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="猪">猪</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxCattle" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="牛">牛</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxDairyCattle" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="奶牛">奶牛</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxSheep" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="羊">羊</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxPoultry" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="家禽">家禽</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-5 inventory-menu-leaf" id="inventoryMenuNoxOtherLivestock" data-inventory-filter-dataset="agriculture_emission" data-inventory-filter-main-category="NOx排放清单" data-inventory-filter-sector="畜牧业" data-inventory-filter-category="物种分解" data-inventory-filter-subjects="其他">其他</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-leaf inventory-menu-disabled" id="inventoryMenuHono">HONO排放清单（待开发）</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-1 inventory-menu-parent" id="inventoryMenuOther" data-inventory-filter-dataset="other_emission">其他排放清单</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-parent" id="inventoryMenuPassengerCar" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-subjects="乘用车">乘用车日尺度排放清单</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf" id="inventoryMenuPassengerCarCo" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-category="污染物分解" data-inventory-filter-subjects="乘用车" data-inventory-filter-keyword="CO">CO</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf" id="inventoryMenuPassengerCarNh3" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-category="污染物分解" data-inventory-filter-subjects="乘用车" data-inventory-filter-keyword="NH3">NH3</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf" id="inventoryMenuPassengerCarNox" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-category="污染物分解" data-inventory-filter-subjects="乘用车" data-inventory-filter-keyword="NOx">NOx</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf" id="inventoryMenuPassengerCarPm" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-category="污染物分解" data-inventory-filter-subjects="乘用车" data-inventory-filter-keyword="PM">PM</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-3 inventory-menu-leaf" id="inventoryMenuPassengerCarVoc" data-inventory-filter-dataset="other_emission" data-inventory-filter-main-category="乘用车日尺度排放清单" data-inventory-filter-category="污染物分解" data-inventory-filter-subjects="乘用车" data-inventory-filter-keyword="VOC">VOC</a>
+              <a href="#" class="inventory-menu-child inventory-menu-level-2 inventory-menu-leaf" id="inventoryMenuExpressDelivery" data-inventory-filter-dataset="other_emission" data-inventory-filter-subjects="快递业">快递业道路尺度排放清单</a>
+
+            </nav>
+          </div>
+        </aside>
+
+        <div class="inventory-main-panel">
+          <div class="inventory-table-head">
+            <div>
+              <h1 id="rasterSectionTitle">农业SLCFs排放数据（ASLCFs）</h1>
+            </div>
+            <div class="inventory-table-tools">
+              <label>
+                <span id="rasterYearLabel">年份</span>
+                <select id="rasterYearFilter"></select>
+              </label>
+              <label>
+                <span id="rasterDatasetLabel">数据集</span>
+                <select id="rasterDatasetFilter"></select>
+              </label>
+              <label>
+                <span id="rasterScaleLabel">时间尺度</span>
+                <select id="rasterScaleFilter"></select>
+              </label>
+              <label class="inventory-keyword-field">
+                <span id="rasterKeywordLabel">关键词</span>
+                <input id="rasterKeywordFilter" type="search" placeholder="输入对象或文件名关键词" />
+              </label>
+            </div>
+          </div>
+
+          <div class="inventory-table-card">
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th id="rasterTableTypeHeader">数据类型</th>
+                  <th id="rasterTableDatasetHeader">数据集</th>
+                  <th id="rasterTableYearHeader">年份</th>
+                  <th id="rasterTableScaleHeader">时间尺度</th>
+                  <th id="rasterTableFilenameHeader">文件名</th>
+                  <th id="rasterTableFormatHeader">格式</th>
+                  <th id="rasterTableActionHeader">操作</th>
+                </tr>
+              </thead>
+              <tbody id="rasterList"></tbody>
+            </table>
+          </div>
+
+          <div class="inventory-table-footer">
+            <p id="rasterResultsMeta">每页显示20条，共0条</p>
+            <div class="raster-pagination">
+              <button type="button" class="button secondary" id="rasterPrevPage">上一页</button>
+              <span id="rasterPageInfo">第 1 页 / 共 1 页</span>
+              <button type="button" class="button secondary" id="rasterNextPage">下一页</button>
+            </div>
+          </div>
+
+          <section class="download-history-panel" id="downloadHistoryPanel">
+            <div class="download-history-head">
+              <div>
+                <h2 id="downloadHistoryTitle">下载历史</h2>
+                <p id="downloadHistoryText">展示当前登录账号最近的数据下载记录。</p>
+              </div>
+              <button type="button" class="button secondary" id="refreshDownloadHistory">刷新</button>
+            </div>
+            <div class="download-history-table-wrap">
+              <table class="download-history-table">
+                <thead>
+                  <tr>
+                    <th id="historyTimeHeader">下载时间</th>
+                    <th id="historyTypeHeader">数据类型</th>
+                    <th id="historyDatasetHeader">数据集</th>
+                    <th id="historyMethodHeader">下载方式</th>
+                    <th id="historyFilenameHeader">文件名</th>
+                    <th id="historyYearHeader">年份</th>
+                    <th id="historyCategoryHeader">分解维度</th>
+                    <th id="historySubjectHeader">对象/物种</th>
+                    <th id="historyScaleHeader">时间尺度</th>
+                    <th id="historyCountHeader">文件数</th>
+                  </tr>
+                </thead>
+                <tbody id="downloadHistoryList">
+                  <tr><td colspan="10">登录后可查看下载历史。</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer-slot" class="site-shell-slot"></div>
+  </div>
+</body>
+</html>
+
+

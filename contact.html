@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>联系反馈 - 农业SLCFs排放数据集</title>
+  <meta name="description" content="提交数据使用咨询、合作意向或页面建议，与我们的研究团队取得联系。" />
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" />
+
+  <link rel="stylesheet" href="styles-modern.css" />
+  <script src="script.js" defer></script>
+</head>
+<body data-page="contact">
+  <div class="page-shell">
+    <div id="site-header-slot" class="site-shell-slot"></div>
+    <div id="site-announcement-slot" class="site-shell-slot"></div>
+
+    <main>
+      <section class="content-section">
+        <div class="section-header">
+          <h1 id="contactTitle">联系反馈</h1>
+          <p id="contactText">欢迎提交数据使用咨询、合作意向或页面建议，我们会尽快回复。</p>
+        </div>
+
+        <div class="contact-container">
+          <div class="contact-form-wrapper">
+            <form id="feedbackForm" class="contact-form">
+              <div class="form-group">
+                <label for="name" id="nameLabel">姓名</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email" id="formEmailLabel">邮箱</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="subject" id="contactSubjectLabel">主题</label>
+                <input type="text" id="subject" name="subject" required />
+              </div>
+
+              <div class="form-group">
+                <label for="message" id="messageLabel">留言内容</label>
+                <textarea id="message" name="message" rows="6" required placeholder="请简要说明您的需求或建议"></textarea>
+              </div>
+
+              <button type="submit" id="submitFeedback" class="button primary">提交反馈</button>
+            </form>
+          </div>
+
+          <div class="contact-info">
+            <div class="info-card">
+              <h3 id="contactInfoTitle">联系方式</h3>
+              <div id="contactDetails">
+                <p><strong>邮箱：</strong>baojieli@nuist.edu.cn</p>
+                <p><strong>电话：</strong>+86-15751883196</p>
+                <p><strong>地址：</strong>江苏省南京市浦口区宁六路219号</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <h3 id="contactHoursTitle">工作时间</h3>
+              <p id="contactHoursWeekday">周一至周五：9:00 - 17:00</p>
+              <p id="contactHoursWeekend">周末及节假日休息</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer-slot" class="site-shell-slot"></div>
+  </div>
+</body>
+</html>

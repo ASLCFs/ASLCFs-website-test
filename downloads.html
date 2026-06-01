@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>下载中心 - 农业SLCFs排放数据集</title>
+  <meta name="description" content="下载排放数据，支持 GeoTIFF 格式。" />
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" />
+
+  <link rel="stylesheet" href="styles-modern.css" />
+  <script src="script.js" defer></script>
+</head>
+<body data-page="downloads">
+  <div class="page-shell">
+    <div id="site-header-slot" class="site-shell-slot"></div>
+    <div id="site-announcement-slot" class="site-shell-slot"></div>
+
+    <main>
+      <section class="content-section downloads-section">
+        <div class="section-header">
+          <h1 id="downloadsTitle">下载中心</h1>
+          <p id="downloadsText">集中提供排放数据下载</p>
+        </div>
+
+        <div class="data-type-selector">
+          <label>
+            <input type="radio" name="dataType" value="emission" checked />
+            <span id="dataTypeEmission">排放数据</span>
+          </label>
+        </div>
+
+        <div class="data-type-description">
+          <div id="descEmission" class="description-card">
+            <p id="descEmissionText">栅格化排放清单数据，按年份、分解维度和对象组织，提供 GeoTIFF 格式文件。</p>
+          </div>
+        </div>
+
+        <div class="filter-form-card">
+          <form id="filterFormEmission" class="filter-form">
+            <div class="filter-section">
+              <label class="filter-label">
+                <span>数据集</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="datasetKey" value="agriculture_emission" id="downloadDatasetAgriculture" checked /> 农业排放清单</label>
+                <label><input type="radio" name="datasetKey" value="other_emission" id="downloadDatasetOther" /> 其他排放清单</label>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <label class="filter-label">
+                <span id="filterYearLabel">年份</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="year" value="2000" required /> 2000</label>
+                <label><input type="radio" name="year" value="2001" /> 2001</label>
+                <label><input type="radio" name="year" value="2002" /> 2002</label>
+                <label><input type="radio" name="year" value="2003" /> 2003</label>
+                <label><input type="radio" name="year" value="2004" /> 2004</label>
+                <label><input type="radio" name="year" value="2005" /> 2005</label>
+                <label><input type="radio" name="year" value="2006" /> 2006</label>
+                <label><input type="radio" name="year" value="2007" /> 2007</label>
+                <label><input type="radio" name="year" value="2008" /> 2008</label>
+                <label><input type="radio" name="year" value="2009" /> 2009</label>
+                <label><input type="radio" name="year" value="2010" /> 2010</label>
+                <label><input type="radio" name="year" value="2011" /> 2011</label>
+                <label><input type="radio" name="year" value="2012" /> 2012</label>
+                <label><input type="radio" name="year" value="2013" /> 2013</label>
+                <label><input type="radio" name="year" value="2014" /> 2014</label>
+                <label><input type="radio" name="year" value="2015" /> 2015</label>
+                <label><input type="radio" name="year" value="2016" /> 2016</label>
+                <label><input type="radio" name="year" value="2017" /> 2017</label>
+                <label><input type="radio" name="year" value="2018" /> 2018</label>
+                <label><input type="radio" name="year" value="2019" /> 2019</label>
+                <label><input type="radio" name="year" value="2020" /> 2020</label>
+                <label><input type="radio" name="year" value="2021" /> 2021</label>
+                <label><input type="radio" name="year" value="2022" /> 2022</label>
+                <label><input type="radio" name="year" value="2023" /> 2023</label>
+              </div>
+            </div>
+
+            <div class="filter-section agriculture-download-field">
+              <label class="filter-label">
+                <span id="filterMainCategoryLabel">大类</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="mainCategory" value="NH3排放清单" id="mainCategoryNH3" required checked /> NH3排放清单</label>
+                <label><input type="radio" name="mainCategory" value="CH4排放清单" id="mainCategoryCH4" /> CH4排放清单</label>
+                <label><input type="radio" name="mainCategory" value="NOx排放清单" id="mainCategoryNOx" /> NOx排放清单</label>
+              </div>
+            </div>
+
+            <div class="filter-section agriculture-download-field" id="sectorSection">
+              <label class="filter-label">
+                <span>行业/来源</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options" id="sectorOptions">
+                <label><input type="radio" name="sector" value="畜牧业" id="sectorLivestock" checked /> 畜牧业</label>
+                <label><input type="radio" name="sector" value="种植业" id="sectorPlanting" /> 种植业</label>
+              </div>
+            </div>
+
+            <div class="filter-section agriculture-download-field">
+              <label class="filter-label">
+                <span id="filterCategoryLabel">分类</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options" id="categoryOptions">
+                <label><input type="radio" name="category" value="时间分解" id="categoryTime" required /> 时间分解</label>
+                <label><input type="radio" name="category" value="物种分解" id="categorySpecies" /> 物种分解</label>
+              </div>
+            </div>
+
+            <div id="timeSubjectSection" class="filter-section agriculture-download-field" style="display:none;">
+              <label class="filter-label">
+                <span>子类</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="timeSubject" value="livestock" /> 畜禽总量</label>
+              </div>
+            </div>
+
+            <div id="speciesSubjectSection" class="filter-section agriculture-download-field" style="display:none;">
+              <label class="filter-label">
+                <span>物种（子类）</span>
+                <span class="required-hint">必须选择一项</span>
+                <a href="#" class="select-all-link" id="selectAllSpecies">Select All</a>
+              </label>
+
+              <div class="species-category">
+                <h4>物种大类</h4>
+                <div class="filter-options">
+                  <label><input type="checkbox" name="species" value="猪" /> 猪</label>
+                  <label><input type="checkbox" name="species" value="牛" /> 牛</label>
+                  <label><input type="checkbox" name="species" value="奶牛" /> 奶牛</label>
+                  <label><input type="checkbox" name="species" value="羊" /> 羊</label>
+                  <label><input type="checkbox" name="species" value="家禽" /> 家禽</label>
+                  <label><input type="checkbox" name="species" value="其他" /> 其他</label>
+                </div>
+              </div>
+            </div>
+
+            <div id="cropSubjectSection" class="filter-section agriculture-download-field" style="display:none;">
+              <label class="filter-label">
+                <span>作物（子类）</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="checkbox" name="cropSubject" value="水稻" /> 水稻</label>
+                <label><input type="checkbox" name="cropSubject" value="小麦" /> 小麦</label>
+                <label><input type="checkbox" name="cropSubject" value="玉米" /> 玉米</label>
+                <label><input type="checkbox" name="cropSubject" value="其他作物" /> 其他作物</label>
+              </div>
+            </div>
+
+            <div id="methaneSubjectSection" class="filter-section agriculture-download-field" style="display:none;">
+              <label class="filter-label">
+                <span>甲烷来源</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="checkbox" name="methaneSubject" value="甲烷总排放量" /> 甲烷总排放量</label>
+                <label><input type="checkbox" name="methaneSubject" value="粪便管理" /> 粪便管理</label>
+                <label><input type="checkbox" name="methaneSubject" value="肠道发酵" /> 肠道发酵</label>
+              </div>
+            </div>
+
+            <div id="otherEmissionSection" class="filter-section" style="display:none;">
+              <label class="filter-label">
+                <span>其他排放清单</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="otherMainCategory" value="乘用车日尺度排放清单" checked /> 乘用车日尺度排放清单</label>
+                <label><input type="radio" name="otherMainCategory" value="快递业道路尺度排放清单" disabled /> 快递业道路尺度排放清单（待开发）</label>
+              </div>
+            </div>
+
+            <div id="otherPendingSection" class="filter-section" style="display:none;">
+              <label class="filter-label">
+                <span>状态</span>
+              </label>
+              <div class="filter-options">
+                <label>快递业道路尺度排放清单暂无可下载文件。</label>
+              </div>
+            </div>
+
+            <div id="otherPollutantSection" class="filter-section" style="display:none;">
+              <label class="filter-label">
+                <span>污染物</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="checkbox" name="otherPollutant" value="CO" /> CO</label>
+                <label><input type="checkbox" name="otherPollutant" value="NH3" /> NH3</label>
+                <label><input type="checkbox" name="otherPollutant" value="NOx" /> NOx</label>
+                <label><input type="checkbox" name="otherPollutant" value="PM" /> PM</label>
+                <label><input type="checkbox" name="otherPollutant" value="VOC" /> VOC</label>
+              </div>
+            </div>
+
+            <div id="otherPeriodSection" class="filter-section" style="display:none;">
+              <label class="filter-label">
+                <span>月份</span>
+                <span class="required-hint">必须选择一项</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="checkbox" name="otherPeriod" value="01" /> 1月</label>
+                <label><input type="checkbox" name="otherPeriod" value="02" /> 2月</label>
+                <label><input type="checkbox" name="otherPeriod" value="03" /> 3月</label>
+                <label><input type="checkbox" name="otherPeriod" value="04" /> 4月</label>
+                <label><input type="checkbox" name="otherPeriod" value="05" /> 5月</label>
+                <label><input type="checkbox" name="otherPeriod" value="06" /> 6月</label>
+                <label><input type="checkbox" name="otherPeriod" value="07" /> 7月</label>
+                <label><input type="checkbox" name="otherPeriod" value="08" /> 8月</label>
+                <label><input type="checkbox" name="otherPeriod" value="09" /> 9月</label>
+                <label><input type="checkbox" name="otherPeriod" value="10" /> 10月</label>
+                <label><input type="checkbox" name="otherPeriod" value="11" /> 11月</label>
+                <label><input type="checkbox" name="otherPeriod" value="12" /> 12月</label>
+              </div>
+            </div>
+
+            <div class="filter-section">
+              <label class="filter-label">
+                <span id="filterScaleLabel">时间尺度</span>
+              </label>
+              <div class="filter-options">
+                <label><input type="radio" name="scale" value="all" checked /> 全部</label>
+                <label><input type="radio" name="scale" value="annual" /> 年度</label>
+                <label><input type="radio" name="scale" value="monthly" /> 月度</label>
+              </div>
+            </div>
+
+            <button type="submit" class="button primary download-btn" id="searchDownloadBtn">
+              <span id="buttonSearchDownload">搜索并下载</span>
+            </button>
+          </form>
+        </div>
+
+        <div id="matchResult" class="match-result"></div>
+
+      </section>
+    </main>
+
+    <div id="site-footer-slot" class="site-shell-slot"></div>
+  </div>
+</body>
+</html>
+

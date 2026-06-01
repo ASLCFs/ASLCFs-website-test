@@ -1,0 +1,4 @@
+region_code,region_name,year,month,sector,source_type,pollutant,activity_level,activity_unit,emission_factor,factor_unit,emission_value,emission_unit,data_source,remarks
+320100,南京市,2026,1,工业,燃煤锅炉,SO2,12500,t,1.8,kg/t,22500,kg,示例数据,请替换为正式数据
+320100,南京市,2026,1,交通,重型柴油车,NOx,860000,vehicle_km,6.5,g/vehicle_km,5590000,g,示例数据,请替换为正式数据
+320100,南京市,2026,1,农业,秸秆处理,PM2.5,320,t,3.2,kg/t,1024,kg,示例数据,请替换为正式数据

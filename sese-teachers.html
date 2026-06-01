@@ -1,0 +1,522 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>课题组教师主页 - 农业SLCFs排放数据集</title>
+  <link rel="stylesheet" href="styles-modern.css" />
+  <script src="script.js" defer></script>
+  <style>
+    .teacher-page {
+      display: grid;
+      gap: 28px;
+    }
+
+    .faculty-hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.7fr);
+      gap: 24px;
+      align-items: stretch;
+      padding: 34px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, rgba(14, 21, 38, 0.92), rgba(9, 16, 28, 0.84));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-strong);
+      backdrop-filter: blur(18px);
+    }
+
+    .faculty-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(69, 214, 195, 0.16), transparent 30%),
+        radial-gradient(circle at 88% 14%, rgba(91, 162, 255, 0.2), transparent 26%);
+      pointer-events: none;
+    }
+
+    .faculty-hero-copy,
+    .faculty-hero-panel {
+      position: relative;
+      z-index: 1;
+    }
+
+    .faculty-hero-copy h1 {
+      margin: 0;
+      font-size: clamp(2.3rem, 4vw, 3.8rem);
+    }
+
+    .faculty-hero-copy p {
+      margin: 18px 0 0;
+      max-width: 760px;
+      line-height: 1.9;
+      color: #c7d2ef;
+    }
+
+    .faculty-meta {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .faculty-meta span {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: #d9e4ff;
+      font-size: 0.9rem;
+    }
+
+    .faculty-hero-panel {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .faculty-stat-card,
+    .faculty-note-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .faculty-stat-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .faculty-stat-value {
+      margin: 10px 0 0;
+      color: var(--accent);
+      font-size: 2.6rem;
+      line-height: 1;
+      font-family: var(--font-display);
+    }
+
+    .faculty-note-card p {
+      margin: 0;
+      color: #cbd6f4;
+      line-height: 1.8;
+    }
+
+    .teacher-directory {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .faculty-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .faculty-photo {
+      aspect-ratio: 4 / 4.6;
+      background: linear-gradient(180deg, rgba(91, 162, 255, 0.18), rgba(69, 214, 195, 0.08));
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .faculty-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .faculty-body {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      min-height: 220px;
+    }
+
+    .faculty-name {
+      margin: 0;
+      font-size: 1.45rem;
+      font-family: var(--font-display);
+    }
+
+    .faculty-role {
+      margin: 0;
+      color: var(--accent-2);
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .faculty-desc {
+      margin: 0;
+      line-height: 1.8;
+      color: #cbd6f4;
+      font-size: 0.95rem;
+    }
+
+    .faculty-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .faculty-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(69, 214, 195, 0.14);
+      color: #ccf4ed;
+      font-size: 0.84rem;
+    }
+
+    .faculty-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .faculty-actions .button {
+      flex: 1 1 140px;
+      padding: 12px 18px;
+      font-size: 0.92rem;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .source-item {
+      padding: 22px 24px;
+    }
+
+    .source-item h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      font-family: var(--font-display);
+    }
+
+    .source-item p,
+    .source-item a {
+      color: #cbd6f4;
+      line-height: 1.8;
+      word-break: break-all;
+    }
+
+    .source-item a {
+      text-decoration: none;
+    }
+
+    .source-item a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 1100px) {
+      .teacher-directory {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .faculty-hero {
+        grid-template-columns: 1fr;
+      }
+
+      .teacher-directory {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .teacher-directory {
+        grid-template-columns: 1fr;
+      }
+
+      .faculty-hero,
+      .faculty-stat-card,
+      .faculty-note-card,
+      .source-item {
+        padding: 20px;
+      }
+
+      .faculty-body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body data-page="teachers">
+  <div class="page-shell">
+    <div id="site-header-slot" class="site-shell-slot"></div>
+    <div id="site-announcement-slot" class="site-shell-slot"></div>
+
+    <main class="teacher-page">
+      <section class="faculty-hero">
+        <div class="faculty-hero-copy">
+          <p class="eyebrow">课题组教师</p>
+          <h1>农业SLCFs排放数据集教师主页</h1>
+          <p>本页聚合展示课题组教师的官方主页入口，保留姓名、职称与官方照片，作为课题组网站内的统一访问页面。整体视觉风格沿用本站深色背景、玻璃面板、青蓝高亮与卡片式信息组织方式，便于与首页、关于我们、数据资源等页面保持一致。</p>
+          <div class="faculty-meta">
+            <span>数据来源：南信大教师主页平台</span>
+            <span>所在单位：环境科学与工程学院</span>
+            <span>编码标准：UTF-8</span>
+          </div>
+        </div>
+        <div class="faculty-hero-panel">
+          <div class="faculty-stat-card">
+            <p class="faculty-stat-label">收录教师</p>
+            <p class="faculty-stat-value">16</p>
+          </div>
+          <div class="faculty-note-card">
+            <p>说明：同名教师条目存在多个主页时，本页优先采用带明确职称与个人照片的官方主页版本，确保展示信息完整且可直接跳转。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2>教师目录</h2>
+          <p>以下教师卡片延续课题组网页的卡片化展示逻辑，每张卡片提供基础信息与主页入口，便于在科研合作、团队介绍和对外展示场景中快速访问。</p>
+        </div>
+
+        <div class="teacher-directory">
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/05/ysPhLmDHadCAJSzbAAAmYi9V5ys475.JPG" alt="廖宏" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">廖宏</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/liaohong/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/25/wKcLBmQ3lwuAEcSkAAJtao6swQ4499.png" alt="李柯" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">李柯</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/keli/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/2F/wKcLBmcJzYWACPzdAAIGQKIOnRw127.png" alt="杨洋" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">杨洋</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/yang_yang/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/2B/wKcLBmX1UM-AY6T4AAJKs5DTVnc010.png" alt="陈磊" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">陈磊</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">采用带明确职称与个人照片的官方主页版本进行展示。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/ichenlei/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/09/ysPhLmDHak6ACNZeAAFwFF77HgI011.JPG" alt="朱佳" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">朱佳</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/zhujia/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/38/wKcLrGnJ0BeAS8uGAAGWpiqTMNs806.png" alt="李保杰" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">李保杰</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/libaojie/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/07/ysPhLWDHal6AP_b5AAGx_6LJs_g172.png" alt="乐旭" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">乐旭</h3>
+                <p class="faculty-role">研究员</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/yuexu/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/04/ysPhLWDHahuAOJoqAAGAyyYJXMw336.png" alt="金建炳" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">金建炳</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/jinjianbing/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/36/wKcLrGkj-m6AdyhXAAHXP6gr9pw345.png" alt="李楠" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">李楠</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/linan1/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/12/ysPhLWDHa4qAaDlyAAAf48q4LFk617.JPG" alt="茅宇豪" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">茅宇豪</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/maoyuhao/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/10/ysPhLWDHa1yAb98QAAAdIeBxnm8099.JPG" alt="刘振鑫" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">刘振鑫</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/liuzhenxin/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/2B/wKcLrGXvyFuAAXgVAAH7THlUIzc758.png" alt="靳茜芃" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">靳茜芃</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/jinxipeng/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/24/wKcLBmP5zhmAAM_pAAGgoNC6rK4418.png" alt="李建东" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">李建东</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">采用带明确职称与个人照片的官方主页版本进行展示。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/lijiandong1/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/37/wKcLBmks-PaAUZXOAALO2MF80jA762.png" alt="王品雅" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">王品雅</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/wangpinya/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/27/wKcLBmSaEOuAAiBQAAJUmZozJY0789.png" alt="谢鸣捷" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">谢鸣捷</h3>
+                <p class="faculty-role">教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/xiemingjie/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+
+          <article class="team-card faculty-card">
+            <div class="faculty-photo"><img src="https://faculty.nuist.edu.cn/_resources/group1/M00/00/38/wKcLBmmN7hCAbLj7AALWWCSY77U991.png" alt="谷怡萱" /></div>
+            <div class="faculty-body">
+              <div>
+                <h3 class="faculty-name">谷怡萱</h3>
+                <p class="faculty-role">副教授</p>
+              </div>
+              <p class="faculty-desc">课题组教师主页入口，照片与职称均来自官方教师主页平台。</p>
+              <div class="faculty-tags"><span class="faculty-tag">环境科学与工程学院</span></div>
+              <div class="faculty-actions"><a class="button primary" href="https://faculty.nuist.edu.cn/guyixuan/zh_CN/index.htm" target="_blank" rel="noreferrer">进入主页</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="section-header">
+          <h2>数据说明</h2>
+          <p>为保证课题组站内展示的一致性与可维护性，当前页面仅保留教师姓名、职称、照片与主页链接，不复制教师主页全文内容。</p>
+        </div>
+        <div class="source-list">
+          <article class="content-card source-item">
+            <h3>官方来源 1</h3>
+            <p><a href="https://sese.nuist.edu.cn/szdw/jsml.htm" target="_blank" rel="noreferrer">https://sese.nuist.edu.cn/szdw/jsml.htm</a></p>
+          </article>
+          <article class="content-card source-item">
+            <h3>官方来源 2</h3>
+            <p><a href="https://faculty.nuist.edu.cn/dwlistjs.jsp?id=1112&lang=zh_CN&st=0&urltype=tsites.CollegeTeacherList&wbtreeid=1021" target="_blank" rel="noreferrer">https://faculty.nuist.edu.cn/dwlistjs.jsp?id=1112&amp;lang=zh_CN&amp;st=0&amp;urltype=tsites.CollegeTeacherList&amp;wbtreeid=1021</a></p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer-slot" class="site-shell-slot"></div>
+  </div>
+</body>
+</html>

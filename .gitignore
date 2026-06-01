@@ -1,0 +1,10 @@
+﻿data/
+*.tif
+*.tiff
+*.zip
+*.rar
+*.7z
+node_modules/
+.env
+.env.*
+*.log
