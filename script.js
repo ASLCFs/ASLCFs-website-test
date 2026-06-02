@@ -3324,7 +3324,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Authentication functions
-const API_BASE_URL = window.ASLCFS_API_BASE_URL || "https://aslcfs-backend.onrender.com";
+const API_BASE_URL = window.ASLCFS_API_BASE_URL || "https://aslcfs-backend-tdg7.onrender.com";
 const LOGIN_URL = `${API_BASE_URL}/api/auth/login`;
 const REGISTER_URL = `${API_BASE_URL}/api/auth/register`;
 const FORGOT_PASSWORD_URL = `${API_BASE_URL}/api/auth/forgot-password`;
