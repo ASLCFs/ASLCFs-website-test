@@ -512,12 +512,12 @@ body {
 .home-news-card {
   display: grid;
   position: absolute;
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: 265px minmax(0, 1fr);
   grid-template-rows: auto;
-  gap: 18px;
-  width: min(530px, 90vw);
-  max-width: 530px;
-  min-height: 158px;
+  gap: 16px;
+  width: min(590px, 90vw);
+  max-width: 590px;
+  min-height: 168px;
   padding: 16px 18px;
   overflow: visible;
 }
@@ -553,7 +553,7 @@ body {
   display: grid;
   align-items: flex-start;
   align-content: center;
-  gap: 9px;
+  gap: 8px;
   min-width: 0;
 }
 
@@ -563,21 +563,21 @@ body {
 
 .home-news-content .card-kicker {
   width: fit-content;
-  margin-bottom: 6px;
-  padding: 4px 9px;
-  font-size: 11px;
+  margin-bottom: 5px;
+  padding: 4px 8px;
+  font-size: 10.5px;
 }
 
 .home-news-content .card-title {
   margin-bottom: 4px;
-  font-size: 15.5px;
-  line-height: 1.4;
+  font-size: 15px;
+  line-height: 1.35;
 }
 
 .home-news-content #newsText {
   margin-bottom: 0;
-  font-size: 12.5px;
-  line-height: 1.5;
+  font-size: 12.25px;
+  line-height: 1.48;
 }
 
 .home-news-link {
@@ -656,8 +656,8 @@ body {
 }
 
 .floating-card.home-news-card {
-  width: min(530px, 90vw);
-  max-width: 530px;
+  width: min(590px, 90vw);
+  max-width: 590px;
   padding: 16px 18px;
 }
 
