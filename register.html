@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>注册 - 农业SLCFs排放数据集</title>
-  <link rel="stylesheet" href="styles-modern.css?v=20260602b" />
-  <script src="script.js?v=20260602b" defer></script>
+  <link rel="stylesheet" href="styles-modern.css?v=20260602c" />
+  <script src="script.js?v=20260602c" defer></script>
 </head>
 <body data-page="register">
   <div class="page-shell">
@@ -58,6 +58,15 @@
                     </svg>
                   </button>
                 </div>
+                <div class="password-rules" id="passwordRules" aria-live="polite">
+                  <p>密码需满足：</p>
+                  <ul>
+                    <li data-rule="length">至少 6 个字符</li>
+                    <li data-rule="lowercase">包含小写字母</li>
+                    <li data-rule="uppercase">包含大写字母</li>
+                    <li data-rule="number">包含数字</li>
+                  </ul>
+                </div>
               </div>
               <div class="form-group">
                 <label for="confirmPassword" id="confirmPasswordLabel">确认密码</label>
@@ -69,6 +78,7 @@
                     </svg>
                   </button>
                 </div>
+                <p class="field-hint" id="confirmPasswordHint">请再次输入相同密码。</p>
               </div>
               <button type="submit" id="registerButton">注册</button>
             </form>
@@ -82,5 +92,6 @@
   </div>
 </body>
 </html>
+
 
 

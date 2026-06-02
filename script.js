@@ -3444,30 +3444,66 @@ function initializePasswordToggles(form) {
 }
 
 // 注册页面密码验证
+function getPasswordRuleState(value = "") {
+  return {
+    length: value.length >= 6,
+    lowercase: /[a-z]/.test(value),
+    uppercase: /[A-Z]/.test(value),
+    number: /\d/.test(value)
+  };
+}
+
+function isStrongPassword(value = "") {
+  return Object.values(getPasswordRuleState(value)).every(Boolean);
+}
+
 function initializePasswordValidation() {
   const password = document.getElementById('regPassword');
   const confirmPassword = document.getElementById('confirmPassword');
   const email = document.getElementById('regEmail');
+  const passwordRules = document.getElementById('passwordRules');
+  const confirmPasswordHint = document.getElementById('confirmPasswordHint');
+
+  const updatePasswordRules = () => {
+    if (!passwordRules || !password) return;
+    const state = getPasswordRuleState(password.value);
+    Object.entries(state).forEach(([rule, isValid]) => {
+      const item = passwordRules.querySelector(`[data-rule="${rule}"]`);
+      if (item) item.classList.toggle('is-valid', isValid);
+    });
+    password.setCustomValidity(password.value && !isStrongPassword(password.value)
+      ? '密码需至少 6 位，并包含大写字母、小写字母和数字'
+      : '');
+  };
+
+  const validatePasswordMatch = () => {
+    if (!password || !confirmPassword) return;
+    if (confirmPassword.value && password.value !== confirmPassword.value) {
+      confirmPassword.setCustomValidity('两次密码输入不一致');
+      confirmPassword.style.borderColor = '#ef4444';
+      if (confirmPasswordHint) {
+        confirmPasswordHint.textContent = '两次密码输入不一致。';
+        confirmPasswordHint.classList.add('is-error');
+      }
+    } else {
+      confirmPassword.setCustomValidity('');
+      confirmPassword.style.borderColor = '';
+      if (confirmPasswordHint) {
+        confirmPasswordHint.textContent = confirmPassword.value ? '两次密码已一致。' : '请再次输入相同密码。';
+        confirmPasswordHint.classList.remove('is-error');
+      }
+    }
+  };
 
   if (confirmPassword && password) {
-    confirmPassword.addEventListener('input', function() {
-      if (this.value && password.value !== this.value) {
-        this.setCustomValidity('两次密码输入不一致');
-        this.style.borderColor = '#ef4444';
-      } else {
-        this.setCustomValidity('');
-        this.style.borderColor = '';
-      }
-    });
+    updatePasswordRules();
+    validatePasswordMatch();
+
+    confirmPassword.addEventListener('input', validatePasswordMatch);
 
     password.addEventListener('input', function() {
-      if (confirmPassword.value && this.value !== confirmPassword.value) {
-        confirmPassword.setCustomValidity('两次密码输入不一致');
-        confirmPassword.style.borderColor = '#ef4444';
-      } else {
-        confirmPassword.setCustomValidity('');
-        confirmPassword.style.borderColor = '';
-      }
+      updatePasswordRules();
+      validatePasswordMatch();
     });
   }
 
@@ -3770,6 +3806,11 @@ async function handleRegister(event) {
 
   if (password !== confirmPassword) {
     setAuthMessage("两次密码输入不一致。", "error");
+    return;
+  }
+
+  if (!isStrongPassword(password)) {
+    setAuthMessage("密码需至少 6 位，并包含大写字母、小写字母和数字。", "error");
     return;
   }
 

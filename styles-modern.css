@@ -2735,6 +2735,60 @@ body[data-page="reset-password"] .content-card h1::after {
   height: 20px;
 }
 
+.password-rules {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.password-rules p {
+  margin: 0 0 6px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.password-rules ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.password-rules li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.password-rules li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.password-rules li.is-valid {
+  color: var(--accent);
+}
+
+.password-rules li.is-valid::before {
+  background: var(--accent);
+}
+
+.field-hint.is-error {
+  color: #ef4444;
+}
+
 /* 提交按钮 */
 .auth-form button[type="submit"] {
   margin-top: 12px;
