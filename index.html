@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" />
 
-  <link rel="stylesheet" href="styles-modern.css?v=20260602i" />
-  <script src="script.js?v=20260602i" defer></script>
+  <link rel="stylesheet" href="styles-modern.css?v=20260602j" />
+  <script src="script.js?v=20260602j" defer></script>
 </head>
 <body data-page="home">
   <div class="page-shell">
@@ -65,18 +65,20 @@
                 <p class="card-title" id="newsTitle">最新动态</p>
                 <p id="newsText">排放数据样例已更新，支持在线浏览与下载。</p>
               </div>
-              <a href="resources.html" class="button primary home-news-link">排放数据</a>
-            </div>
-            <div class="home-news-controls" aria-label="最新动态图片轮播">
-              <button type="button" class="home-news-arrow" data-news-action="prev" aria-label="上一张">‹</button>
-              <div class="home-news-dots">
-                <button type="button" class="home-news-dot is-active" data-news-dot="0" aria-label="第 1 张"></button>
-                <button type="button" class="home-news-dot" data-news-dot="1" aria-label="第 2 张"></button>
-                <button type="button" class="home-news-dot" data-news-dot="2" aria-label="第 3 张"></button>
-                <button type="button" class="home-news-dot" data-news-dot="3" aria-label="第 4 张"></button>
-                <button type="button" class="home-news-dot" data-news-dot="4" aria-label="第 5 张"></button>
+              <div class="home-news-actions">
+                <a href="resources.html" class="button primary home-news-link">排放数据</a>
+                <div class="home-news-controls" aria-label="最新动态图片轮播">
+                  <button type="button" class="home-news-arrow" data-news-action="prev" aria-label="上一张">‹</button>
+                  <div class="home-news-dots">
+                    <button type="button" class="home-news-dot is-active" data-news-dot="0" aria-label="第 1 张"></button>
+                    <button type="button" class="home-news-dot" data-news-dot="1" aria-label="第 2 张"></button>
+                    <button type="button" class="home-news-dot" data-news-dot="2" aria-label="第 3 张"></button>
+                    <button type="button" class="home-news-dot" data-news-dot="3" aria-label="第 4 张"></button>
+                    <button type="button" class="home-news-dot" data-news-dot="4" aria-label="第 5 张"></button>
+                  </div>
+                  <button type="button" class="home-news-arrow" data-news-action="next" aria-label="下一张">›</button>
+                </div>
               </div>
-              <button type="button" class="home-news-arrow" data-news-action="next" aria-label="下一张">›</button>
             </div>
           </div>
         </div>
@@ -87,6 +89,7 @@
   </div>
 </body>
 </html>
+
 
 
 
