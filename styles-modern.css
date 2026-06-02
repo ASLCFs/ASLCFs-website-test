@@ -511,21 +511,23 @@ body {
 
 .home-news-card {
   display: grid;
+  position: absolute;
   grid-template-columns: 1fr;
-  gap: 14px;
-  width: min(920px, 94vw);
-  max-width: 920px;
-  padding: 18px;
+  gap: 16px;
+  width: min(620px, 90vw);
+  max-width: 620px;
+  padding: 18px 18px 20px;
   overflow: hidden;
 }
 
 .home-news-media {
   position: relative;
-  min-height: 330px;
+  min-height: 235px;
   aspect-ratio: 2.12 / 1;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
+  overflow: visible;
+  border-radius: 16px;
   background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
 }
 
 .home-news-image {
@@ -535,7 +537,7 @@ body {
   height: 100%;
   object-fit: contain;
   opacity: 0;
-  transform: scale(0.985);
+  transform: scale(0.96);
   transition: opacity 0.6s ease, transform 0.8s ease;
 }
 
@@ -549,28 +551,52 @@ body {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  gap: 18px;
+  gap: 20px;
   min-width: 0;
 }
 
+.home-news-copy {
+  min-width: 0;
+}
+
+.home-news-content .card-kicker {
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
 .home-news-content .card-title {
-  margin-bottom: 6px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  line-height: 1.3;
 }
 
 .home-news-content #newsText {
   margin-bottom: 0;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .home-news-link {
-  width: fit-content;
+  flex: 0 0 auto;
+  min-width: 96px;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .home-news-controls {
-  grid-column: 1 / -1;
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .home-news-arrow,
@@ -580,12 +606,12 @@ body {
 }
 
 .home-news-arrow {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: var(--bg-secondary);
+  background: rgba(248, 250, 252, 0.92);
   color: var(--text-primary);
-  font-size: 24px;
+  font-size: 22px;
   line-height: 1;
 }
 
