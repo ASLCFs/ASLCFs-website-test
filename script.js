@@ -1958,9 +1958,10 @@ function formatFileSize(bytes) {
 }
 
 function getPollutantFromMainCategory(mainCategory = "NH3排放清单") {
-  if (String(mainCategory).startsWith("CH4")) return "CH4";
-  if (String(mainCategory).startsWith("NOx")) return "NOx";
-  if (String(mainCategory).startsWith("HONO")) return "HONO";
+  const value = String(mainCategory || "").trim();
+  if (value.includes("HONO")) return "HONO";
+  if (value.includes("CH4")) return "CH4";
+  if (value.includes("NOx")) return "NOx";
   return "NH3";
 }
 
@@ -2695,8 +2696,9 @@ async function handleEmissionDownload(event) {
 
   try {
     const token = getAuthToken();
+    const selectedPollutant = getPollutantFromMainCategory(mainCategory);
 
-    if (mainCategory === "HONO排放清单") {
+    if (selectedPollutant === "HONO") {
       if (year !== "2016") {
         throw new Error("HONO排放清单目前仅提供 2016 年数据。");
       }
@@ -2710,7 +2712,7 @@ async function handleEmissionDownload(event) {
     }
 
     const filters = {
-      pollutant: getPollutantFromMainCategory(mainCategory),
+      pollutant: selectedPollutant,
       mainCategory,
       sector,
       year,
