@@ -898,7 +898,7 @@ const rasterInventoryState = {
   sidebarSubjects: []
 };
 
-const pageVisits = Number(localStorage.getItem("visitCount") || 0) + 1;
+const VISIT_BASE_COUNT = 6124;
 const supportedLanguages = ["zh", "en"];
 let currentLanguage = "zh";
 let currentSearch = "";
@@ -3277,9 +3277,40 @@ function renderContactDetails() {
   }
 }
 
-function updateVisitStats() {
-  localStorage.setItem("visitCount", pageVisits);
-  document.getElementById("visitCount").textContent = pageVisits.toLocaleString();
+async function updateVisitStats() {
+  const visitCount = document.getElementById("visitCount");
+  if (!visitCount) return;
+
+  visitCount.textContent = VISIT_BASE_COUNT.toLocaleString();
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/analytics/visit`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        page: document.body?.dataset?.page || "",
+        path: window.location.pathname,
+        referrer: document.referrer || ""
+      })
+    });
+
+    if (!response.ok) throw new Error("Failed to record visit");
+
+    const data = await response.json();
+    visitCount.textContent = Number(data.totalCount || VISIT_BASE_COUNT).toLocaleString();
+  } catch (error) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/analytics/visit-count`, {
+        credentials: "include"
+      });
+      if (!response.ok) throw new Error("Failed to load visit count");
+      const data = await response.json();
+      visitCount.textContent = Number(data.totalCount || VISIT_BASE_COUNT).toLocaleString();
+    } catch (fallbackError) {
+      visitCount.textContent = VISIT_BASE_COUNT.toLocaleString();
+    }
+  }
 }
 
 function handleSearch(event) {
