@@ -3336,6 +3336,45 @@ function buildDownloadCenterUrlFromInventory(button) {
   return `downloads.html${params.toString() ? `?${params.toString()}` : ""}`;
 }
 
+function buildDownloadCenterUrlFromLegacyDownload(button) {
+  const rawUrl = button.dataset.downloadUrl || "";
+  const params = new URLSearchParams();
+
+  try {
+    const url = new URL(rawUrl, window.location.href);
+    const source = url.searchParams;
+    const pollutant = source.get("pollutant") || "";
+    const subject = source.get("subject") || "";
+    const mainCategory = pollutant === "HONO"
+      ? "HONO排放清单"
+      : pollutant === "CH4"
+        ? "CH4排放清单"
+        : pollutant === "NOx"
+          ? "NOx排放清单"
+          : "NH3排放清单";
+
+    params.set("dataset", source.get("datasetKey") || "agriculture_emission");
+    params.set("mainCategory", source.get("mainCategory") || mainCategory);
+    if (source.get("sector")) params.set("sector", source.get("sector"));
+    if (source.get("category")) params.set("category", source.get("category"));
+    if (subject) params.set("subject", subject);
+    if (pollutant) params.set("pollutant", pollutant);
+    if (source.get("year")) params.set("year", source.get("year"));
+    if (source.get("scale")) params.set("scale", source.get("scale"));
+    if (source.get("period")) params.set("period", source.get("period"));
+
+    if (!params.get("period") && params.get("scale") === "monthly") {
+      const filename = source.get("filename") || button.dataset.fileName || "";
+      const matched = filename.match(/(?:^|[^0-9])(?:19|20)\d{2}[_-](0[1-9]|1[0-2])(?:[^0-9]|$)/);
+      if (matched) params.set("period", matched[1]);
+    }
+  } catch (error) {
+    if (button.dataset.fileName) params.set("keyword", button.dataset.fileName);
+  }
+
+  return `downloads.html${params.toString() ? `?${params.toString()}` : ""}`;
+}
+
 function initializeRasterInventory() {
   const container = document.getElementById("rasterList");
   if (!container) return;
@@ -3568,17 +3607,7 @@ function initializeRasterInventory() {
 
     const downloadButton = event.target.closest("[data-download-url]");
     if (downloadButton) {
-      downloadButton.disabled = true;
-      downloadWithAuth(downloadButton.dataset.downloadUrl, downloadButton.dataset.fileName)
-        .then((downloaded) => {
-          if (downloaded) renderDownloadHistory();
-        })
-        .catch((error) => {
-          alert(`下载失败：${error.message}`);
-        })
-        .finally(() => {
-          downloadButton.disabled = false;
-        });
+      window.location.href = buildDownloadCenterUrlFromLegacyDownload(downloadButton);
       return;
     }
 
