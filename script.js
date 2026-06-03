@@ -3315,6 +3315,7 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
   const safeMessage = escapeDownloadWindowHtml(message);
   const safeUrl = escapeDownloadWindowHtml(url);
   const safeFilename = escapeDownloadWindowHtml(filename || "Zenodo data file");
+  const safeReturnUrl = escapeDownloadWindowHtml(new URL("downloads.html", window.location.href).href);
   const statusText = status === "error" ? "下载准备失败" : "正在准备下载";
 
   try {
@@ -3364,14 +3365,32 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
       font-size: 14px;
     }
     a {
-      display: inline-block;
-      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 6px;
       color: #0b5cab;
+      background: #e7f0fb;
       font-weight: 650;
       text-decoration: none;
     }
     a:hover {
-      text-decoration: underline;
+      background: #d8e8fa;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .primary {
+      color: #ffffff;
+      background: #0b5cab;
+    }
+    .primary:hover {
+      background: #084b8f;
     }
     .status {
       display: inline-flex;
@@ -3396,8 +3415,11 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
     <h1>${safeTitle}</h1>
     <p>${safeMessage}</p>
     <div class="file">${safeFilename}</div>
-    <p>如果页面没有自动跳转，可以点击下方链接打开 Zenodo 下载页面。</p>
-    <a href="${safeUrl}" rel="noopener">打开 Zenodo 下载链接</a>
+    <p>下载完成后请关闭此页面返回 ASLCFs 网站。</p>
+    <div class="actions">
+      <a href="${safeReturnUrl}">返回下载中心</a>
+      <a class="primary" href="${safeUrl}" rel="noopener">打开 Zenodo 下载链接</a>
+    </div>
   </main>
 </body>
 </html>`);
@@ -3411,8 +3433,8 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
 function createPendingDownloadWindow(url, filename) {
   const popup = window.open("about:blank", "_blank");
   writeDownloadWindowContent(popup, {
-    title: "正在准备下载",
-    message: "系统正在记录下载申请，完成后会自动跳转到 Zenodo 文件页面。",
+    title: "正在跳转 Zenodo 下载",
+    message: "系统正在记录下载申请，完成后会自动跳转到 Zenodo 下载页面。",
     url,
     filename
   });
