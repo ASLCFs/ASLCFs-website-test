@@ -2766,6 +2766,31 @@ async function handleEmissionDownload(event) {
 
   try {
     const token = getAuthToken();
+    const zenodoMatch = await findZenodoEmissionFile({
+      pollutant: selectedPollutant,
+      mainCategory,
+      sector,
+      year,
+      category: selectedPollutant === "HONO" ? "" : category,
+      subjects: selectedPollutant === "HONO" ? ["HONO"] : subjects,
+      scale
+    });
+
+    if (zenodoMatch) {
+      await recordZenodoDownloadRequest(zenodoMatch, {
+        pollutant: selectedPollutant,
+        mainCategory,
+        sector,
+        year,
+        category: selectedPollutant === "HONO" ? "" : category,
+        subjects: selectedPollutant === "HONO" ? ["HONO"] : subjects,
+        scale
+      });
+      window.open(zenodoMatch.zenodoUrl, "_blank", "noopener");
+      showMatchResult(`已记录下载申请，正在打开 Zenodo 文件：${zenodoMatch.filename}`, "success");
+      renderDownloadHistory();
+      return;
+    }
 
     if (selectedPollutant === "HONO") {
       if (year !== "2016") {
@@ -2829,6 +2854,75 @@ async function handleEmissionDownload(event) {
   } finally {
     btn.textContent = originalText;
     btn.disabled = false;
+  }
+}
+
+let zenodoFileIndexPromise = null;
+
+async function loadZenodoFileIndex() {
+  if (!zenodoFileIndexPromise) {
+    zenodoFileIndexPromise = fetch("zenodo-files.json", { cache: "no-store" })
+      .then(response => {
+        if (!response.ok) return [];
+        return response.json();
+      })
+      .then(items => Array.isArray(items) ? items : [])
+      .catch(() => []);
+  }
+  return zenodoFileIndexPromise;
+}
+
+function normalizeZenodoScale(scale) {
+  return String(scale || "");
+}
+
+async function findZenodoEmissionFile(filters) {
+  const items = await loadZenodoFileIndex();
+  const subjects = Array.isArray(filters.subjects) ? filters.subjects : [];
+
+  return items.find(item => {
+    const samePollutant = item.pollutant === filters.pollutant;
+    const sameMainCategory = item.mainCategory === filters.mainCategory;
+    const sameSector = !item.sector || item.sector === filters.sector;
+    const sameCategory = !item.category || item.category === filters.category;
+    const sameYear = item.year === filters.year;
+    const sameScale = normalizeZenodoScale(filters.scale) !== "all" && item.scale === filters.scale;
+    const sameSubject = !item.subject || subjects.includes(item.subject);
+    return samePollutant && sameMainCategory && sameSector && sameCategory && sameYear && sameScale && sameSubject;
+  });
+}
+
+async function recordZenodoDownloadRequest(file, filters) {
+  const token = getAuthToken();
+  const response = await fetch(`${API_BASE_URL}/api/downloads/zenodo-request`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      filename: file.filename,
+      zenodoUrl: file.zenodoUrl,
+      filePath: file.zenodoUrl,
+      fileCount: 1,
+      year: file.year || filters.year,
+      mainCategory: file.mainCategory || filters.mainCategory,
+      sector: file.sector || filters.sector,
+      category: file.category || filters.category,
+      subject: file.subject || (Array.isArray(filters.subjects) ? filters.subjects.join(", ") : ""),
+      scale: file.scale || filters.scale,
+      filters: {
+        ...filters,
+        filename: file.filename,
+        zenodoUrl: file.zenodoUrl
+      }
+    })
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.error || error.message || "记录下载申请失败");
   }
 }
 

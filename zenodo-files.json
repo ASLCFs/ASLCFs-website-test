@@ -1,0 +1,46 @@
+[
+  {
+    "pollutant": "NH3",
+    "mainCategory": "NH3排放清单",
+    "sector": "畜牧业",
+    "category": "时间分解",
+    "year": "2000",
+    "scale": "monthly",
+    "subject": "livestock",
+    "filename": "2000_01_livestock_NH3.tif",
+    "zenodoUrl": "https://zenodo.org/records/20522961/files/2000_01_livestock_NH3.tif?download=1"
+  },
+  {
+    "pollutant": "NH3",
+    "mainCategory": "NH3排放清单",
+    "sector": "畜牧业",
+    "category": "时间分解",
+    "year": "2000",
+    "scale": "annual",
+    "subject": "livestock",
+    "filename": "2000_livestock_NH3.tif",
+    "zenodoUrl": "https://zenodo.org/records/20522961/files/2000_livestock_NH3.tif?download=1"
+  },
+  {
+    "pollutant": "HONO",
+    "mainCategory": "HONO排放清单",
+    "sector": "",
+    "category": "",
+    "year": "2016",
+    "scale": "annual",
+    "subject": "HONO",
+    "filename": "2016(1).tif",
+    "zenodoUrl": "https://zenodo.org/records/20522961/files/2016(1).tif?download=1"
+  },
+  {
+    "pollutant": "CH4",
+    "mainCategory": "CH4排放清单",
+    "sector": "甲烷来源",
+    "category": "甲烷来源分解",
+    "year": "2000",
+    "scale": "annual",
+    "subject": "水稻种植",
+    "filename": "CH4_emission_rice_China_5min_2000.tif",
+    "zenodoUrl": "https://zenodo.org/records/20522961/files/CH4_emission_rice_China_5min_2000.tif?download=1"
+  }
+]
