@@ -1167,7 +1167,7 @@ body[data-page="about"] .content-section:first-of-type .section-header p {
 .team-grid {
   display: flex;
   flex-direction: column;
-  gap: 34px;
+  gap: 38px;
 }
 
 .team-group {
@@ -1177,59 +1177,59 @@ body[data-page="about"] .content-section:first-of-type .section-header p {
 .team-group-heading {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
+  gap: 14px;
+  margin-bottom: 20px;
 }
 
 .team-group-heading::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--border-light);
+  background: #e6eaf0;
 }
 
 .team-group-heading h3 {
   margin: 0;
-  font-size: 19px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 650;
   color: var(--text-primary);
   letter-spacing: 0;
 }
 
 .team-group-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 24px;
 }
 
 .team-group-leader .team-group-grid {
-  grid-template-columns: repeat(2, minmax(260px, 1fr));
-  max-width: 650px;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  max-width: 690px;
 }
 
 .team-card {
   text-align: center;
-  padding: 32px;
-  background: white;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 30px 28px;
+  background: #ffffff;
+  border: 1px solid #e8edf3;
+  border-radius: 10px;
+  box-shadow: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .team-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-6px);
-  border-color: var(--accent-light);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  border-color: #d5dce6;
 }
 
 .team-card-leader {
-  padding: 34px 30px;
-  border-color: rgba(15, 118, 110, 0.22);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fffd 100%);
+  padding: 34px 30px 32px;
+  border-color: #d9e1ea;
+  background: #fbfcfe;
 }
 
 .team-card-leader:hover {
-  border-color: rgba(15, 118, 110, 0.42);
+  border-color: #c5ceda;
 }
 
 .team-card-placeholder {
@@ -1258,14 +1258,16 @@ body[data-page="about"] .content-section:first-of-type .section-header p {
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 16px;
-  border: 3px solid var(--bg-secondary);
+  margin-bottom: 18px;
+  border: 1px solid #e5eaf1;
+  box-shadow: 0 0 0 6px #f8fafc;
 }
 
 .team-card-leader img {
-  width: 112px;
-  height: 112px;
-  border-color: rgba(15, 118, 110, 0.14);
+  width: 108px;
+  height: 108px;
+  border-color: #dbe3ec;
+  box-shadow: 0 0 0 7px #f4f7fa;
 }
 
 .team-card img.team-photo-guwangjinli {
@@ -1294,14 +1296,23 @@ body[data-page="about"] .content-section:first-of-type .section-header p {
 
 .team-card h3 {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 650;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 9px;
 }
 
 .team-card p {
   font-size: 14px;
   color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.team-card-role {
+  margin-bottom: 4px;
+}
+
+.team-card-research {
+  color: #667085;
 }
 
 /* 页脚 */
