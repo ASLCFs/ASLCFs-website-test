@@ -123,7 +123,7 @@ const pageData = {
     contactHoursTitle: "工作时间",
     contactHoursWeekday: "周一至周五：9:00 - 17:00",
     contactHoursWeekend: "周末及节假日休息",
-    footerOrg: "南京信息工程大学环境科学与工程学院 / 农业SLCFs排放数据集",
+    footerOrg: "南京信息工程大学",
     footerCopyright: "© 2026 南京信息工程大学",
     footerLegal: [
       "数据使用规范：仅限科研与教学用途。",
@@ -981,7 +981,7 @@ function createSiteHeaderMarkup(activePage) {
           <img src="logo.png" alt="南京信息工程大学校徽" class="brand-logo" />
           <div class="brand-copy">
             <p class="brand-name">南京信息工程大学</p>
-            <p class="brand-subtitle">环境科学与工程学院</p>
+            <p class="brand-subtitle">南京信息工程大学</p>
           </div>
         </a>
 
@@ -1024,7 +1024,7 @@ function createSiteFooterMarkup() {
       <div class="footer-grid">
         <div class="footer-column">
           <p class="footer-title">机构信息</p>
-          <p id="footerOrg">南京信息工程大学环境科学与工程学院 / 农业SLCFs排放数据集</p>
+          <p id="footerOrg">南京信息工程大学</p>
           <p id="footerCopyright">© 2026 南京信息工程大学</p>
         </div>
         <div class="footer-column">

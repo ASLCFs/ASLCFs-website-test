@@ -314,7 +314,7 @@ body {
 }
 
 .visit-stats strong {
-  color: var(--accent);
+  color: var(--text-primary);
   font-weight: 700;
   font-size: 13px;
 }
@@ -1376,6 +1376,10 @@ body[data-page="about"] .content-section:first-of-type .section-header p {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+#footerLegal2 {
+  white-space: nowrap;
 }
 
 .footer-note {
@@ -4028,6 +4032,10 @@ body[data-page="admin"] .button.danger:hover {
 @media (max-width: 768px) {
   .inventory-list-section {
     padding-top: 16px;
+  }
+
+  #footerLegal2 {
+    white-space: normal;
   }
 
   .team-group-leader .team-group-grid {
