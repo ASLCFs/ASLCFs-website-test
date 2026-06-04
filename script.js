@@ -1357,7 +1357,7 @@ function renderPapers() {
 function getRasterTexts() {
   if (currentLanguage === "zh") {
     return {
-      sectionTitle: "农业SLCFs排放数据（ASLCFs）",
+      sectionTitle: "农业SLCFs排放清单（ASLCFs）",
       yearLabel: "年份",
       datasetLabel: "数据集",
       categoryLabel: "分类",
@@ -1406,7 +1406,7 @@ function getRasterTexts() {
       sidebarTitle: "清单列表",
       emissionData: "排放数据",
       noPublicData: "暂无公开数据",
-      agricultureDataset: "农业SLCFs排放数据（ASLCFs）",
+      agricultureDataset: "农业SLCFs排放清单（ASLCFs）",
       ch4Category: "CH4排放清单",
       noxCategory: "NOx排放清单",
       honoCategory: "HONO排放清单",
