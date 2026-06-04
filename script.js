@@ -3589,7 +3589,7 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
   const safeUrl = escapeDownloadWindowHtml(url);
   const safeFilename = escapeDownloadWindowHtml(filename || "Zenodo data file");
   const safeReturnUrl = escapeDownloadWindowHtml(new URL("downloads.html", window.location.href).href);
-  const statusText = status === "error" ? "下载准备失败" : "正在准备下载";
+  const statusText = status === "error" ? "下载准备失败" : "正在下载";
 
   try {
     popup.document.open();
@@ -3686,12 +3686,12 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
   <main>
     <div class="status"><span class="dot"></span>${escapeDownloadWindowHtml(statusText)}</div>
     <h1>${safeTitle}</h1>
-    <p>${safeMessage}</p>
+    ${safeMessage ? `<p>${safeMessage}</p>` : ""}
     <div class="file">${safeFilename}</div>
     <p>下载完成后请关闭此页面返回 ASLCFs 网站。</p>
     <div class="actions">
       <a href="${safeReturnUrl}">返回下载中心</a>
-      <a class="primary" href="${safeUrl}" rel="noopener">打开 Zenodo 下载链接</a>
+      <a class="primary" href="${safeUrl}" rel="noopener">如若下载失败请点击此处</a>
     </div>
   </main>
 </body>
@@ -3706,8 +3706,8 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
 function createPendingDownloadWindow(url, filename) {
   const popup = window.open("about:blank", "_blank");
   writeDownloadWindowContent(popup, {
-    title: "正在跳转 Zenodo 下载",
-    message: "系统正在记录下载申请，完成后会自动跳转到 Zenodo 下载页面。",
+    title: "正在下载",
+    message: "",
     url,
     filename
   });
@@ -3744,7 +3744,7 @@ function writeDownloadListWindowContent(popup, { title, message, files, status =
   const safeTitle = escapeDownloadWindowHtml(title);
   const safeMessage = escapeDownloadWindowHtml(message);
   const safeReturnUrl = escapeDownloadWindowHtml(new URL("downloads.html", window.location.href).href);
-  const statusText = status === "error" ? "下载准备失败" : "正在准备下载";
+  const statusText = status === "error" ? "下载准备失败" : "正在下载";
   const listHtml = buildDownloadListHtml(files);
 
   try {
