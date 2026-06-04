@@ -4751,6 +4751,7 @@ function handleLogout() {
 
   const adminLink = document.getElementById("navAdmin");
   if (adminLink) adminLink.style.display = "none";
+  document.body.classList.remove("admin-nav-visible");
 
   sessionStorage.setItem("logoutMessage", "已退出登录");
   window.location.href = "index.html";
@@ -5112,6 +5113,7 @@ async function revealAdminLink() {
 
   if (cachedUser && cachedUser.role === "admin") {
     link.style.display = "inline-flex";
+    document.body.classList.add("admin-nav-visible");
   }
 
   if (!token && !isAdminPage) return;
@@ -5124,6 +5126,7 @@ async function revealAdminLink() {
     const data = await response.json();
     if (response.ok && data.user && data.user.role === "admin") {
       link.style.display = "inline-flex";
+      document.body.classList.add("admin-nav-visible");
     }
   } catch (error) {
     // ignore

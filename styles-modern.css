@@ -152,13 +152,13 @@ body {
 /* 导航菜单 */
 .site-nav {
   display: flex;
-  gap: 2px;
+  gap: 6px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex: 1 1 auto;
   min-width: 0;
   flex-wrap: nowrap;
-  padding: 3px;
+  padding: 3px 6px;
   background: rgba(248, 250, 252, 0.92);
   border-radius: 999px;
   border: 1px solid rgba(226, 232, 240, 0.95);
@@ -166,11 +166,15 @@ body {
 }
 
 .site-nav a {
-  padding: 8px 15px;
+  flex: 1 1 0;
+  min-width: 72px;
+  max-width: 112px;
+  padding: 8px 12px;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
   text-decoration: none;
+  text-align: center;
   border-radius: 999px;
   border: 1px solid transparent;
   transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
@@ -196,6 +200,17 @@ body {
 
 .site-nav a.active::after {
   display: none;
+}
+
+body.admin-nav-visible .site-nav {
+  gap: 4px;
+}
+
+body.admin-nav-visible .site-nav a {
+  min-width: 64px;
+  max-width: 98px;
+  padding-left: 9px;
+  padding-right: 9px;
 }
 
 /* 右侧操作区 */
@@ -948,6 +963,24 @@ body {
 
   .visit-stats #statLabel {
     display: none;
+  }
+}
+
+@media (max-width: 1320px) {
+  body.admin-nav-visible .site-header .container {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  body.admin-nav-visible .site-actions {
+    flex: 1 0 100%;
+    order: 3;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  body.admin-nav-visible .site-nav {
+    order: 2;
   }
 }
 
@@ -3839,6 +3872,8 @@ body[data-page="admin"] .button.danger:hover {
   }
 
   .site-nav a {
+    min-width: 66px;
+    max-width: 104px;
     padding: 7px 12px;
     font-size: 12.8px;
   }
@@ -3878,10 +3913,13 @@ body[data-page="admin"] .button.danger:hover {
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 5px;
   }
 
   .site-nav a {
+    flex: 0 1 auto;
+    min-width: 64px;
+    max-width: none;
     padding: 7px 11px;
     font-size: 12.6px;
   }
@@ -3924,6 +3962,7 @@ body[data-page="admin"] .button.danger:hover {
   }
 
   .site-nav a {
+    min-width: 58px;
     padding: 7px 9px;
     font-size: 12.5px;
   }
@@ -4002,6 +4041,7 @@ body[data-page="admin"] .button.danger:hover {
   }
 
   .site-nav a {
+    min-width: 54px;
     padding: 7px 8px;
     font-size: 12px;
   }
