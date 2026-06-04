@@ -1004,7 +1004,7 @@ function createAnnouncementMarkup() {
   return `
     <div class="announcement-bar" aria-live="polite">
       <div class="ticker">
-        <span id="tickerText">${pageData.zh.announcementItems.join(" · ")}</span>
+        <span id="tickerText">公告加载中...</span>
       </div>
     </div>
   `;
@@ -1220,10 +1220,17 @@ function renderAnnouncements(items) {
   ticker.textContent = items.join(" · ");
 }
 
+let announcementRequestId = 0;
+
 async function loadAnnouncements(lang) {
+  const requestId = ++announcementRequestId;
+  renderAnnouncements([lang === "zh" ? "公告加载中..." : "Loading announcements..."]);
+
   try {
     const response = await fetch(`${API_BASE_URL}/api/announcements?lang=${lang}`);
     const data = await response.json();
+    if (requestId !== announcementRequestId) return;
+
     if (response.ok && data.items && data.items.length) {
       renderAnnouncements(data.items.map(item => item.text));
       return;
@@ -1231,6 +1238,8 @@ async function loadAnnouncements(lang) {
   } catch (error) {
     // fallback to local data
   }
+
+  if (requestId !== announcementRequestId) return;
   const fallback = pageData[lang]?.announcementItems || pageData.zh.announcementItems;
   renderAnnouncements(fallback);
 }
