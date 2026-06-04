@@ -3175,7 +3175,13 @@ async function handleEmissionDownload(event) {
   btn.disabled = true;
 
   try {
-    const token = getAuthToken();
+    const isAuthenticated = await ensureDownloadAuthenticated();
+    if (!isAuthenticated) {
+      showLoginRequiredDownloadWindow();
+      showMatchResult("请先登录后下载。", "warning");
+      return;
+    }
+
     const zenodoMatch = await findZenodoEmissionFile({
       pollutant: selectedPollutant,
       mainCategory,
@@ -3343,6 +3349,35 @@ function isDownloadRecordNetworkError(error) {
     || /load failed/i.test(message);
 }
 
+async function ensureDownloadAuthenticated() {
+  const token = getAuthToken();
+  if (!token) return false;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/auth/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+      credentials: "include"
+    });
+
+    if (!response.ok) {
+      if ([401, 403].includes(response.status)) clearStoredAuth();
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function showLoginRequiredDownloadWindow() {
+  const popup = window.open("about:blank", "_blank");
+  writeLoginRequiredDownloadWindowContent(popup);
+  if (!popup) {
+    window.location.href = "login.html";
+  }
+}
+
 async function recordExpressDeliveryDownloadRequest() {
   await recordZenodoDownloadRequest(EXPRESS_DELIVERY_ZENODO_FILE, {
     datasetKey: EXPRESS_DELIVERY_ZENODO_FILE.datasetKey,
@@ -3364,12 +3399,20 @@ async function handleOtherEmissionDownload(event, formData) {
     const originalText = btn.textContent;
     btn.textContent = '正在打开 Zenodo...';
     btn.disabled = true;
-    const popup = createPendingDownloadWindow(
-      EXPRESS_DELIVERY_ZENODO_FILE.zenodoUrl,
-      EXPRESS_DELIVERY_ZENODO_FILE.filename
-    );
+    let popup = null;
 
     try {
+      const isAuthenticated = await ensureDownloadAuthenticated();
+      if (!isAuthenticated) {
+        showLoginRequiredDownloadWindow();
+        showMatchResult("请先登录后下载。", "warning");
+        return;
+      }
+
+      popup = createPendingDownloadWindow(
+        EXPRESS_DELIVERY_ZENODO_FILE.zenodoUrl,
+        EXPRESS_DELIVERY_ZENODO_FILE.filename
+      );
       await recordExpressDeliveryDownloadRequest();
       navigateDownloadWindow(popup, EXPRESS_DELIVERY_ZENODO_FILE.zenodoUrl);
       showMatchResult("已记录下载申请，正在打开快递业道路尺度排放清单 zip 数据包。", "success");
@@ -3415,6 +3458,13 @@ async function handleOtherEmissionDownload(event, formData) {
   btn.disabled = true;
 
   try {
+    const isAuthenticated = await ensureDownloadAuthenticated();
+    if (!isAuthenticated) {
+      showLoginRequiredDownloadWindow();
+      showMatchResult("请先登录后下载。", "warning");
+      return;
+    }
+
     const matches = await findZenodoPassengerCarFiles({ pollutants, year, periods });
     const expectedCount = pollutants.length * periods.length;
 
@@ -3518,6 +3568,12 @@ async function findZenodoPassengerCarFiles({ pollutants, year, periods }) {
 }
 
 async function downloadWithAuth(url, fallbackFilename) {
+  const isAuthenticated = await ensureDownloadAuthenticated();
+  if (!isAuthenticated) {
+    showLoginRequiredDownloadWindow();
+    showMatchResult("请先登录后下载。", "warning");
+    return false;
+  }
   const token = getAuthToken();
 
   const response = await fetch(url, {
@@ -3697,6 +3753,91 @@ function writeDownloadWindowContent(popup, { title, message, url, filename, stat
     <div class="actions">
       <a href="${safeReturnUrl}">返回下载中心</a>
       <a class="primary" href="${safeUrl}" rel="noopener">如若下载失败请点击此处</a>
+    </div>
+  </main>
+</body>
+</html>`);
+    popup.document.close();
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function writeLoginRequiredDownloadWindowContent(popup) {
+  if (!popup || popup.closed) return false;
+
+  const loginUrl = escapeDownloadWindowHtml(new URL("login.html", window.location.href).href);
+  const returnUrl = escapeDownloadWindowHtml(new URL("downloads.html", window.location.href).href);
+
+  try {
+    popup.document.open();
+    popup.document.write(`<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>请先登录后下载</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: #1f2933;
+      background: #f6f8fb;
+    }
+    main {
+      width: min(520px, calc(100vw - 32px));
+      padding: 32px;
+      border: 1px solid #d8e0ea;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 16px 40px rgba(31, 41, 51, 0.08);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      font-weight: 650;
+    }
+    p {
+      margin: 0;
+      line-height: 1.7;
+      color: #52606d;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 6px;
+      color: #0b5cab;
+      background: #e7f0fb;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .primary {
+      color: #ffffff;
+      background: #0b5cab;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>请先登录后下载</h1>
+    <p>数据下载需要登录账号，用于记录科研数据使用情况。登录后请返回下载中心重新提交下载申请。</p>
+    <div class="actions">
+      <a class="primary" href="${loginUrl}">前往登录</a>
+      <a href="${returnUrl}">返回下载中心</a>
     </div>
   </main>
 </body>
