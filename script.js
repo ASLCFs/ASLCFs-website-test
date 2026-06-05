@@ -135,7 +135,8 @@ const pageData = {
     footerEmail: "邮箱：baojieli@nuist.edu.cn",
     footerAddress: "地址：江苏省南京市浦口区宁六路219号",
     loginTitle: "用户登录",
-    usernameLabel: "用户名",
+    usernameLabel: "注册姓名",
+    usernamePlaceholder: "请输入注册时填写的真实姓名",
     passwordLabel: "密码",
     loginButton: "登录",
     registerLink: "还没有账户？",
@@ -241,7 +242,8 @@ const pageData = {
     footerEmail: "Email: baojieli@nuist.edu.cn",
     footerAddress: "Address: No.219 Ningliu Road, Pukou District, Nanjing, Jiangsu",
     loginTitle: "User Login",
-    usernameLabel: "Username",
+    usernameLabel: "Registered Name",
+    usernamePlaceholder: "Enter the real name used during registration",
     passwordLabel: "Password",
     loginButton: "Login",
     registerLink: "Don't have an account?",
@@ -1157,6 +1159,7 @@ function setLanguage(lang) {
   // Update login/register elements if they exist
   if (document.getElementById("loginTitle")) document.getElementById("loginTitle").textContent = page.loginTitle;
   if (document.getElementById("usernameLabel")) document.getElementById("usernameLabel").textContent = page.usernameLabel;
+  if (document.getElementById("username")) document.getElementById("username").placeholder = page.usernamePlaceholder || pageData.zh.usernamePlaceholder;
   if (document.getElementById("passwordLabel")) document.getElementById("passwordLabel").textContent = page.passwordLabel;
   if (document.getElementById("loginButton")) document.getElementById("loginButton").textContent = page.loginButton;
   if (document.getElementById("registerLink")) document.getElementById("registerLink").innerHTML = page.registerLink + ' <a href="register.html">' + page.navRegister + '</a>';
@@ -5168,7 +5171,7 @@ async function handleLogin(event) {
   const password = document.getElementById("password").value;
 
   if (!username || !password) {
-    setAuthMessage("请输入用户名和密码。", "error");
+    setAuthMessage("请输入注册姓名和密码。", "error");
     return;
   }
 
